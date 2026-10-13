@@ -1,32 +1,34 @@
 <html>
-	<head>
-		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-		<style>
-			h1 {
-				text-align: center;
-			}
 
-			.container {
-				margin: 0 auto;
-				padding: 60px 20%;
-			}
+<head>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+	<style>
+		h1 {
+			text-align: center;
+		}
 
-			figure {
-				text-align: center;
-			}
+		.container {
+			margin: 0 auto;
+			padding: 60px 20%;
+		}
 
-			img {
-				display: inline-block;
-			}
+		figure {
+			text-align: center;
+		}
 
-			body {
-				font-family: 'Inter', sans-serif;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="container">
+		img {
+			display: inline-block;
+		}
+
+		body {
+			font-family: 'Inter', sans-serif;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
 		<h1>CS184/284A Fall 2026 Homework 2 Write-Up</h1>
 		<div style="text-align: center;">Names: </div>
 
@@ -35,11 +37,12 @@
 		Link to webpage: (TODO) <a href="https://cs184.eecs.berkeley.edu/fa26">cs184.eecs.berkeley.edu/fa26</a>
 
 		<br>
-		
-		Link to GitHub repository: (TODO) <a href="https://cs184.eecs.berkeley.edu/fa26">cs184.eecs.berkeley.edu/fa26</a>
+
+		Link to GitHub repository: (TODO) <a
+			href="https://cs184.eecs.berkeley.edu/fa26">cs184.eecs.berkeley.edu/fa26</a>
 
 		<figure>
-			<img src="assets/teapot.png" alt="Teapot" style="width:50%"/>
+			<img src="assets/teapot.png" alt="Teapot" style="width:50%" />
 			<figcaption>You can add images with captions!</figcaption>
 		</figure>
 
@@ -48,69 +51,248 @@
 		-->
 
 		<h2>Overview</h2>
-		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
+		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole.
+		Share your thoughts on what interesting things you've learned from completing the homework.
+		**TODO**
 
 		<h2>Section I: Bezier Curves and Surfaces</h2>
 
 		<h3>Part 1: Bezier curves with 1D de Casteljau subdivision</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<p>De Casteljau's algorithm is a recursive one to compute points on a Bezier curve. Given n control points,
+			linearly interpolate between them to compute n - 1 control points at parameter t, where one of the
+			intermediate points = (1 - t)*pi + t*pi+1. This is lerp(pi, pi+1, t). Applying this step recursively leaves
+			us with one single points
+			lying on the Bezier curve at the given parameter t.</p>
+		<p>My BezierCurve::evaluateStep lerps each adjacent pair of points with the member <code>t</code>,
+			<code>(1-t)*pi + t*pi+1</code> and returns n - 1 points.
+		</p>
 
-		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
 		<div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
-			  <tr>
-				<td style="text-align: center;">
-				  <img src="assets/teapot.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-				<td style="text-align: center;">
-				  <img src="assets/teapot.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-			  </tr>
-			  <tr>
-				<td style="text-align: center;">
-				  <img src="assets/teapot.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-				<td style="text-align: center;">
-				  <img src="assets/teapot.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-			  </tr>
+				<tr>
+					<td style="text-align: center;">
+						<img src="assets/1.1.png" width="400px" />
+						<figcaption>My Bezier curve with 6 control points</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="assets/1.2.png" width="400px" />
+						<figcaption>1 step</figcaption>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: center;">
+						<img src="assets/1.3.png" width="400px" />
+						<figcaption>2 steps</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="assets/1.4.png" width="400px" />
+						<figcaption>3 steps</figcaption>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: center;">
+						<img src="assets/1.5.png" width="400px" />
+						<figcaption>4 steps</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="assets/1.6.png" width="400px" />
+						<figcaption>5 steps</figcaption>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: center;">
+						<img src="assets/1.7.png" width="400px" />
+						<figcaption>All 5 steps + curve</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="assets/1.8.png" width="400px" />
+						<figcaption>Slightly modified curve & modified parameter t</figcaption>
+					</td>
+				</tr>
 			</table>
 		</div>
 
 		<h3>Part 2: Bezier surfaces with separable 1D de Casteljau</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<p>A Bezier surface is a Bezier curve of Bezier curves. You run de Casteljau along each row of the control grid
+			at u
+			to get one point per row. Then you can run it on those points at v, and the single point left is the surface
+			point
+			S(u, v).</p>
+		<p>In my implementation of BezierPatch::evaluateStep,</p>
+		<p>- evaluateStep is the same lerp step, but t is a parameter and the points are 3D.</p>
+		<p>- evaluate1D calls evaluateStep repeatedly until one point is left.</p>
+		<p>- evaluate(u, v) runs evaluate1D at u on each row of controlPoints, then runs evaluate1D at v on the
+			resulting
+			column of points.</p>
+
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+				<tr>
+					<td style="text-align: center;">
+						<img src="assets/2.1.png" width="400px" />
+						<figcaption>../bez/teapot.bez</figcaption>
+					</td>
+				</tr>
+			</table>
+		</div>
 
 		<h2>Section II: Triangle Meshes and Half-Edge Data Structure</h2>
 
 		<h3>Part 3: Area-weighted vertex normals</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<p>In my implementation of Vertex::normal(),</p>
+		<p>- walk the faces around the vertex with h = h->twin()->next(), skipping boundary faces.</p>
+		<p>- for each triangle, add cross(p1 - p0, p2 - p0), already area-weighted because its length is twice the area.
+		</p>
+		<p>- return the normalized sum.</p>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+				<tr>
+					<td style="text-align: center;">
+						<img src="assets/3.1.png" width="400px" />
+						<figcaption>Phong shading</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="assets/3.2.png" width="400px" />
+						<figcaption>Flat shading (w/o vertex shading)</figcaption>
+					</td>
+				</tr>
+			</table>
+		</div>
 
 		<h3>Part 4: Edge flip</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<p>My implementation of HalfedgeMesh::flipEdge(...),</p>
+		<p>- does nothing if either face is a boundary.</p>
+		<p>- otherwise saves the 6 half-edges, 4 vertices, 4 outer edges, 4 outer twins and 2 faces.
+		</p>
+		<p>- then reassigns every pointer through setNeighbors, so the edge P–Q becomes R–S. h0 and h1 are reused as new
+			edge.</p>
+		<p>- vertex, edge and face half-edge pointers are re-set too. Nothing is created or deleted.</p>
+		<p>Debugging: just using check_for before and after the flip to figure out that one face referenced by 4
+			halfedges and one by 2, missing a setNeighbors call.</p>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+				<tr>
+					<td style="text-align: center;">
+						<img src="assets/4.1.png" width="333px" />
+						<figcaption>Before edge flips</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="assets/4.2.png" width="333px" />
+						<figcaption>After edge flips</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="assets/4.3.png" width="333px" />
+						<figcaption>Edge flips shown w/ Phong shading</figcaption>
+					</td>
+				</tr>
+			</table>
+		</div>
+
 
 		<h3>Part 5: Edge split</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<p>My implementation of HalfedgeMesh::splitEdge(...),</p>
+		<p>- does nothing on boundary edges.</p>
+		<p>- creates one vertex at midpoint, 3 edges, 2 faces, and 6 halfedges.
+		</p>
+		<p>- rewires everything into four triangle around new vertex M, reusing h0, h1, e0, f0, and f1.</p>
+		<p>- resets all vertex, edge, and face pointers, w/ M's halfedge along the original edge, returning M.</p>
+		<p>Implementation has asymmetric reuse - P–M half keeps e0 and h0, and the Q–M half gets a new edge but reuses
+			h1. so h7 gets eMQ while h6 gets the original e0.</p>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+				<tr>
+					<td style="text-align: center;">
+						<img src="assets/5.1.png" width="333px" />
+						<figcaption>Before edge splits & flips</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="assets/5.2.png" width="333px" />
+						<figcaption>After edge splits</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="assets/5.3.png" width="333px" />
+						<figcaption>Edge splits & flips</figcaption>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<p>Far left image: applied edge flips and splits to make the 12-2 o'clock face symmetrical with the 10-12
+			o'clock one, and the 6-8 o'clock symmetrical with 4-6 o'clock.</p>
+
 
 		<h3>Part 6: Loop subdivision for mesh upsampling</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>(Optional) Section III: Potential Extra Credit - Art Competition: Model something Creative</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>Additional Notes (please remove)</h2>
-		<ul>
-			<li>You can also add code if you'd like as so: <code>code code code</code></li>
-			<li>If you'd like to add math equations, 
-				<ul>
-					<li>You can write inline equations like so: \( a^2 + b^2 = c^2 \)</li>
-					<li>You can write display equations like so: \[ a^2 + b^2 = c^2 \]</li>
-				</ul>
-			</li>
-		</ul>
+		<p>My implementation of MeshResampler::upsample(...):</p>
+		<p>- computes old-vertex positions (1 - n·u)·pos + u·neighborSum into newPosition, and edge-midpoint positions
+			3/8(A+B) + 1/8(C+D) into Edge::newPosition, all from original mesh.</p>
+		<p>- splits each original edge (counting the edge list up front so new edges aren't resplit) and marks the new
+			vertex and its two spoke edges as isNew. Then flip every new edge that joins one old and one new vertex.
+		</p>
+		<p>- then copy each vertex's newPosition into position.</p>
+		<p>- boundary edges are skipped throughout, so open meshes are not subdivided correctly.</p>
+		<p>My implementation sets flags outside splitEdge, after the fact - for each of the new vertex's four edges, it checks whether the far endpoint is one of the two original endpoints P or Q.</p>
+		<p>- if it is, the edge is one half of the original edge, and isNew = false.</p>
+		<p>- if it isn't, the edge is a spoke to an opposite corner, and isNew = true.</p>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+				<tr>
+					<td style="text-align: center;">
+						<img src="assets/6.1.png" width="400px" />
+						<figcaption>Default torus</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="assets/6.2.png" width="400px" />
+						<figcaption>Upscaled onces</figcaption>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: center;">
+						<img src="assets/6.3.png" width="400px" />
+						<figcaption>Upscaled twice</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="assets/6.4.png" width="400px" />
+						<figcaption>Upscaled three times</figcaption>
+					</td>
+				</tr>
+			</table>
 		</div>
-	</body>
+		<p>Sharp corners and edges are pulled in the most when upscaling, making the object rounder and seemingly
+			smaller. Could definitely reduce this difference in size by presplitting edges involved with the sharpest
+			corners to make it less necessary to round the object across long edges.
+		</p>
+
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+				<tr>
+					<td style="text-align: center;">
+						<img src="assets/6.6.png" width="400px" />
+						<figcaption>Default cube</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="assets/6.7.png" width="400px" />
+						<figcaption>Default cube upscaled 4 times (lopsided)</figcaption>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: center;">
+						<img src="assets/6.8.png" width="400px" />
+						<figcaption>Cube with edge split on the diagonal edge thru each face</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="assets/6.9.png" width="400px" />
+						<figcaption>Cube with split face edges upscaled 4 times (more symmetrical)</figcaption>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<p>Each face of the default cube is made of two triangles, and there is one edge diagonally through the face. So
+			as the cube is upscaled, each of the two triangles is divided into 4 triangles, and the upscaled cube will
+			be perpetually lopsided.</p>
+		<p>By splitting the edge diagonal through each of the faces of the cube before upscaling, each of the faces of
+			the cube are now made up of four triangles, so the square faces are evenly divided into 4 parts. Now, when
+			subdividing, the cube becomes a more symmetrical rounded version of itself at each step.</p>
+
+	</div>
+</body>
+
 </html>
