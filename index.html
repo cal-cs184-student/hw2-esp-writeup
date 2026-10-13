@@ -34,16 +34,17 @@
 
 		<br>
 
-		Link to webpage: (TODO) <a href="https://cs184.eecs.berkeley.edu/fa26">cs184.eecs.berkeley.edu/fa26</a>
+		Link to webpage: (TODO) <a
+			href="https://cal-cs184-student.github.io/hw2-esp-writeup/">cal-cs184-student.github.io/hw2-esp-writeup</a>
 
 		<br>
 
 		Link to GitHub repository: (TODO) <a
-			href="https://cs184.eecs.berkeley.edu/fa26">cs184.eecs.berkeley.edu/fa26</a>
+			href="https://github.com/cal-cs184-student/hw2-esp">github.com/cal-cs184-student/hw2-esp</a>
 
 		<figure>
 			<img src="assets/teapot.png" alt="Teapot" style="width:50%" />
-			<figcaption>You can add images with captions!</figcaption>
+			<figcaption>Bezier curves and meshes</figcaption>
 		</figure>
 
 		<!--
@@ -51,9 +52,13 @@
 		-->
 
 		<h2>Overview</h2>
-		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole.
-		Share your thoughts on what interesting things you've learned from completing the homework.
-		**TODO**
+		First implemented de Casteljau's algorithm for Bezier curves, to support Bezier curves with control points and
+		surfaces made of Bezier curves. Then moved to lighting meshes with vertex normals to make the lighting much
+		smoother, flipping and splitting edges that distorts meshes, and loop subdivisions to upscale rough, sharp
+		meshes. I thought it was super interesting to dive into the implementations of things I took for granted. For
+		example, I often use Bezier curves for motion design but gained a greater appreciation for their elegance and
+		how control points work under the hood. Also have wanted to venture into Blender, so it was awesome digging beneath
+		the abstraction that the software makes for us when modeling meshes and objects.
 
 		<h2>Section I: Bezier Curves and Surfaces</h2>
 
@@ -229,7 +234,8 @@
 		</p>
 		<p>- then copy each vertex's newPosition into position.</p>
 		<p>- boundary edges are skipped throughout, so open meshes are not subdivided correctly.</p>
-		<p>My implementation sets flags outside splitEdge, after the fact - for each of the new vertex's four edges, it checks whether the far endpoint is one of the two original endpoints P or Q.</p>
+		<p>My implementation sets flags outside splitEdge, after the fact - for each of the new vertex's four edges, it
+			checks whether the far endpoint is one of the two original endpoints P or Q.</p>
 		<p>- if it is, the edge is one half of the original edge, and isNew = false.</p>
 		<p>- if it isn't, the edge is a spoke to an opposite corner, and isNew = true.</p>
 		<div style="display: flex; flex-direction: column; align-items: center;">
